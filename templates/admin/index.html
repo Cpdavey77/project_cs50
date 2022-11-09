@@ -1,0 +1,45 @@
+{% extends "admin/master.html" %}
+
+{% block head %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+{% endblock %}
+
+{% block body %}
+
+    <form action="/admin" method="post">
+        <input type="text" autocomplete="off" autofocus id="username" name="username" placeholder="Username..."><br><br>
+        <input type="text" autocomplete="off" id="password" name="password" placeholder="Password..."><br><br>
+        <input type="text" autocomplete="off" id="employee_name" name="employee_name" placeholder="Employee name..."><br><br>
+        <input type="number" autocomplete="off" id="employee_number" name="employee_number" placeholder="Employee number..."><br><br>
+        <input type="text" autocomplete="off" id="employee_type" name="employee_type" placeholder="Employee type..."><br><br>
+        <input type="text" autocomplete="off" id="employee_position" name="employee_position" placeholder="Employee position..."><br>
+        Manager: <input type="checkbox" id="if_manager" name="if_manager" value="manager" onclick="enable_disable()"><br><br>
+        <select id="manager" name="manager">
+            <option selected disabled>Assign to who</option>
+            {% for user_manager in user_managers %}
+                <option value="{{ user_manager.id }}"> {{ user_manager.employee_name }} </option>
+            {% endfor %}
+        </select><br><br>
+        <button type="submit">Submit</button>
+    </form>
+    <form action="/login" method="get">
+        <button type="submit">Go to Login</button>
+    </form>
+    <script>
+       function enable_disable() {
+            if ($("#if_manager").is(":checked")) {
+                $("#employee_position").prop('disabled', true);
+                $("#manager").prop('disabled', true);
+            }
+            else {
+                $("#employee_position").prop('disabled', false);
+                $("#manager").prop('disabled', false);
+            }
+       }
+    </script>
+    <script>
+        $(document).ready(function(){
+
+        })
+    </script>
+{% endblock %}

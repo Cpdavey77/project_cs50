@@ -1,0 +1,25 @@
+{% extends "admin/master.html" %}
+
+{% block head %}
+    <link href="/static/styles.css" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <table class="admin_table" cellpadding="10">
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Feedback</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user, feedback in results %}
+                <tr>
+                    <td> {{user.username}} </td>
+                    <td> {{feedback.feedback}} </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+{% endblock %}

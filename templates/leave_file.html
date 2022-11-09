@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block title %}
+File Leaves
+{% endblock %}
+
+{% block main %}
+    <div class="user_ot_leave">
+        <div>
+            <form class="leave_form" action="/leave_file" method="post">
+                <label for="date_start">Start Date:</label>
+                <input autofocus type="date" id="date_start" name="date_start">
+                <label for="date_end">End Date:</label>
+                <input type="date" id="date_end" name="date_end">
+                <button id="submit_file" type="submit">File</button>
+            </form>
+        </div>
+        <div>
+            <table class="table" id="leave">
+                <thead>
+                    <tr>
+                        <th>Date Filed</th>
+                        <th>Status</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for leave in leaves %}
+                        <tr>
+                            <td> {{ leave.date_filed }} </td>
+                            <td id="status">{{ leave.status }}</td>
+                            <td>{{ leave.start_date }}</td>
+                            <td>{{ leave.end_date }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

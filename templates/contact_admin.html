@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Contact Admin
+{% endblock %}
+
+{% block main %}
+
+<div class="contact_form">
+    <div class="contact_admin_text">
+        <h2>How can we improve our system?</h2>
+        <h3>Feedback is highly appreciated!</h3>
+    </div>
+    <div class="contact_admin">
+        <form action="/contact_admin" method="post">
+            <div class="contact_elements">
+                <div>
+                    <textarea autofocus class="feedback" id="feedback" minlength="10" name="feedback" placeholder="Write something..." style="height: 200px; width: 130%;"></textarea>
+                </div>
+                <div>
+                    <button id="submit_contact" type="submit" style="margin-top: 1rem;">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

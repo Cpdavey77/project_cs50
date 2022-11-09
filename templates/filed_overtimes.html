@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Filed Overtimes
+{% endblock %}
+
+{% block main %}
+    <div class="table_manager">
+        <table class="table" id="table_manager2">
+            <thead>
+                <tr>
+                    <th><strong>Employee</strong></th>
+                    <th><strong>Date Filed</strong></th>
+                    <th><strong>Status</strong></th>
+                    <th><strong>Date of Overtime</strong></th>
+                    <th><strong>Time Start</strong></th>
+                    <th><strong>Time End</strong></th>
+                    <th><strong>Total Hours</strong></th>
+                    <th><strong>Action</strong></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for overtime, user in results %}
+                    <tr>
+                        <td>{{ user.employee_name }}</td>
+                        <td>{{ overtime.date_filed }}</td>
+                        <td>{{ overtime.status }}</td>
+                        <td>{{ overtime.date }}</td>
+                        <td>{{ overtime.ot_start }}</td>
+                        <td>{{ overtime.ot_end }}</td>
+                        <td>{{ overtime.total_hours }}</td>
+                        <td>
+                            <form action="/filed_overtimes" method="post">
+                                <input type="hidden" id="overtime_id" name="overtime_id" value="{{ overtime.overtime_id }}">
+                                <button type="submit" name="action" value="approve">Approve</button>
+                            </form>
+                            <form action="/filed_overtimes" method="post">
+                                <input type="hidden" id="overtime_id" name="overtime_id" value="{{ overtime.overtime_id }}">
+                                <button type="submit" name="action" value="reject">Reject</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

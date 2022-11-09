@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    {% if position == "Manager" %}
+        To Do
+    {% else %}
+        Tasks
+    {% endif %}
+{% endblock %}
+
+{% block main %}
+    {% if position == "Manager" %}
+    <form action="/" method="post" id="todo_form">
+        <div class="table_index" >
+            <table class="table" style="width: 100%;" cellpadding="8">
+                <thead>
+                    <tr>
+                        <th><strong>Title</strong></th>
+                        <th><strong>Description</strong></th>
+                        <th><strong>Action</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for todo in todos %}
+                        <tr>
+                            <td>{{ todo.title }}</td>
+                            <td>{{ todo.description }}</td>
+                            <td>
+                                <input type="hidden" name="todo_id" value="{{ todo.todo_id }}">
+                                <button type="submit" name="action" value="remove">Remove</button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td><input class="manager_form" type="text" id="title" name="title" placeholder="Title..."size="5"></td>
+                        <td>
+                            <div>
+                                <textarea class="manager_form" id="description" name="description" placeholder="Write something..." style="height:100px; width:100%;"></textarea>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <button type="submit" id="submit" name="action" value="add" style="margin-left: 20px;">Add</button>
+                            </div>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </form>
+    {% else %}
+        <table class="table" cellpadding="5" style="width: 60%; margin-top: 1.8rem;">
+            <thead>
+                <tr>
+                    <th><strong>Task</strong></th>
+                    <th><strong>Date Received</strong></th>
+                    <th><strong>Deadline</strong></th>
+                    <th><strong>Description</strong></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in tasks %}
+                    <tr>
+                        <td>{{ task.task }}</td>
+                        <td>{{ task.date_received }}</td>
+                        <td>{{ task.deadline }}</td>
+                        <td>{{ task.description }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}

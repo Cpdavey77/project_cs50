@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block title %}
+File Overtimes
+{% endblock %}
+
+{% block main %}
+    <div class="user_ot_leave">
+        <div>
+            <form class="overtime_form" action="/overtime_file" method="post">
+                <label for="ot_date">Date:</label>
+                <input autofocus type="date" id="ot_date" name="ot_date" style="width: 118px; margin-left: 82px;"><br>
+                <label for="shifts">Select shift:</label>
+                <select id="shift_id" name="shift_id" style="margin-left: 41px;">'
+                    {% for shift in shifts %}
+                        {% if shift.shift_id == 2 %}
+                            <option value="{{ shift.shift_id }}" selected>{{ shift.in }}-{{ shift.out }}</option>
+                        {% else %}
+                            <option value="{{ shift.shift_id }}">{{ shift.in }}-{{ shift.out }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select><br>
+                <label for="ot_hours">Number of hours :</label>
+                <input type="number" id="ot_hours" name="ot_hours" min="1" step="0.5" style="width: 50px;"><br>
+                <button id="submit_file" type="submit">File</button>
+            </form>
+        </div>
+        <div>
+            <table class="table" id="overtime">
+                <thead>
+                    <tr>
+                        <th><strong>Date Filed</strong></th>
+                        <th><strong>Status</strong></th>
+                        <th><strong>Date of Overtime</strong></th>
+                        <th><strong>Time Start</strong></th>
+                        <th><strong>Time End</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for overtime in overtimes %}
+                        <tr>
+                            <td>{{ overtime.date_filed }}</td>
+                            <td>{{ overtime.status }}</td>
+                            <td>{{ overtime.date }}</td>
+                            <td>{{ overtime.ot_start }}</td>
+                            <td>{{ overtime.ot_end }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

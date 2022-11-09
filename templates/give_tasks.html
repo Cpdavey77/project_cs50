@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Give Tasks
+{% endblock %}
+
+{% block main %}
+    <div class="task_container">
+        <form class="give_task_form" action="/give_tasks" method = "post">
+            <select id="personnel_id" name="personnel_id">
+                <option selected disabled>Select personnel...</option>
+                {% for personnel in personnels %}
+                    <option value="{{ personnel.id }}">{{ personnel.employee_name }}</option>
+                {% endfor %}
+            </select>
+            <input class="manager_form" type="text" id="title" name="title" placeholder="Title of task..."><br>
+            <label for="deadline">Deadline: </label>
+            <input type="date" id="deadline" name="deadline">
+            <textarea class="manager_form" id="description" name="description" placeholder="Describe task..."></textarea>
+            <button id="submit" type="submit">Submit</button>
+        </form>
+    </div>
+{% endblock %}
+
+

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link href="/static/company_logo.ico" rel="icon">
+        <link href="/static/styles.css" rel="stylesheet">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="/static/js/table_status.js"></script>
+        <script src="/static/js/textfields_manager.js"></script>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale = 1, width = device-width">
+
+        <title>{% block title %}{% endblock %}</title>
+    </head>
+    <body style="margin: 0;">
+        <div class="container">
+            <div class="logo">
+                <img height="130" width="200" src="/static/company_logo.png" alt="company_logo">
+            </div>
+            <div class="user_info_container">
+                <div class="user_image">
+                    <img class="dp" style="border-radius: 50%;" src="/static/user_profile_placeholder.jpg" alt="profile">
+                </div>
+                <div class="user_info">
+                    <div class="user_info_details">
+                        <h3 style="font-size: 2rem;">{{user.employee_name}}</h3>
+                        <h5>{{user.employee_type}}</h5>
+                        <h5>{{user.employee_position}}</h5>
+                        <h5>Employee no. #{{user.employee_number}}</h5>
+                        <h4>Date started: {{user.date_started}}</h5>
+                    </div>
+                </div>
+            </div>
+            {% with messages = get_flashed_messages(with_categories = true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    {% if category == "success" %}
+                        <header>
+                            <div class="alert-success" role="alert">
+                                {{ message }}
+                            </div>
+                        </header>
+                    {% elif category == "error" %}
+                        <header>
+                            <div class="alert-error" role="alert">
+                                {{ message }}
+                            </div>
+                        </header>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
+            {% if position == "Manager" %}
+                <nav class="navigation_bar">
+                    <ul class="nav_1">
+                        <li><a href="/">To Do</a></li>
+                        <li><a href="/give_tasks">Give Tasks</a></li>
+                        <li><a href="/filed_leaves">Filed Leaves</a></li>
+                        <li><a href="/filed_overtimes">Filed Overtimes</a></li>
+                        <li><a href="/contact_admin">Contact Admin</a></li>
+                        <li><a href="/logout">Log Out</a></li>
+                </nav>
+            {% else %}
+                <script src="/static/js/textfields_manager.js" type="text/javascript"></script>
+                <nav class="navigation_bar">
+                    <ul class="nav_1">
+                        <li><a href="/">Tasks</a></li>
+                        <li><a href="/leave_file">Leave Filing</a></li>
+                        <li><a href="/overtime_file">Overtime Filing</a></li>
+                        <li><a href="/contact_admin">Contact Admin</a></li>
+                        <li><a href="/logout">Log Out</a></li>
+                </nav>
+            {% endif %}
+            <main class="container_main">
+                {% block main %}{% endblock %}
+            </main>
+        </div>
+    </body>
+
+</html>
